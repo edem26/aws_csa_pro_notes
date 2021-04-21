@@ -1,0 +1,38 @@
+Kinesis is a managed data streaming service
+Good for application logs, clickstreams, IoT, real-time big data
+
+3 main components of Kinesis
+     Kinesis Streams: Low latency streaming ingest at scale
+     Kinesis Analytics: Perform real-time analytics on streaming using SQL
+     Kinesis Firehose: Load stream into S3, RedShift, ElasticSearch & Splunk
+
+Kinesis architecture
+
+Click Streams/IoT devices/Metrics & Logs -->Kinesis Streams --> Kinesis Analytics --> Kinesis Firehose --> [S3/Redshift]
+
+Kinesis Streams
+     Streams are divided in ordered Shards / Partitions
+          One stream is made of many different shards
+          Kinesis producers:
+               AWS SDK
+               Kinesis Producer Library (KPL) --> Use if you are writing code for your app
+               Kinesis Agent: Mnitor log file and send to kinesis directly --> Use if you need log from EC2
+          Kinesis consumers
+     Data retention is 24hrs by default but can go to 7 days
+     Once data is inserted in Kinesis, it can't be deleted (immutability)
+
+     Kinesis Limitations
+          Producers: 
+               1MB/s or 1000 msg per shard
+               Add shard if you want to scale your write throughput
+          Consumer Classic
+               2MB/s at read per shard
+               5 API calls/s per shard
+          Consumer Enhanced Fan-Out
+               No API calls needed
+
+     Kinesis Data Firehose
+          Near Real Time (60s minimum latency)
+          Load data to Redshift/S3/ElasticSearch/Splunk
+          No data storage
+          Serverless, automated scaling
