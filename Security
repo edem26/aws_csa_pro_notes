@@ -1,0 +1,81 @@
+Federated security models
+SAML vs OAuth vs OpenID
+
+SAML: Can handle both authorization and authentication
+XML-based protocol, Can contain user, group membership, best for SSO for enterprise users
+
+OAuth: Allow sharing of protected assets without sending login credentials, Handles authorization only not Authentication, Issues token to client, best suited for API authorization between apps
+
+OpenID: Identity layer built on top of OAuth, adding athentication, Uses REST/JSON message flows, Supports web clients, mobile clients, Javascript clients, best suited for SSO for consumer
+
+AWS Tools for Account Management
+- AWS Organizations
+- Service Conrol Policies
+- Tagging
+- Resource Group
+- Consolidated Billing
+
+Security Group Vs Network Access Control Lists
+SG act like virtual firewalls for individual asets (EC2, RDS, etc), controls inbound and outbound traffic fr TCP, UDP, ICMP or custom protocols
+
+NACL are additional layer of security for VPC that act as firewall, apply to entire subnets rather than individual assets, NACL are stateless meaning outbound traffic simply obey outbound rule, remember ephemeral ports for outbound if you need them
+
+
+AWS Directory Services
+AWS Cloud Directory: Cloud native directory to share and control access to hierarchical data between apps. It is best for cloud applications that need hierarchical data with complex relationships
+
+AWS Cognito: Sign up and sing-in functionality that scales to millions of users and federated to public social media services. Best use to develop consumer apps or SaaS
+
+AWS Directory Service for Microsoft AD: AWS managed full MS AD running on Windows Server 2012 R2. Best for enterprises that want hosted MS AD or need LDAP for Linux apps
+
+AD Connector: Allow on prem users to log into AWS services with their existing AD creds. Also allows EC2 instances to join AD domain. Best for SSO for on-prem users
+
+Simple AD: Low scale, low cost AD imlementation based on Samba. Bet for simple user directory or LDAP compatibility
+
+Difference between 
+Cloud HSM                                  and                    AWS KMS:
+CloudHSM is single-tenant HSM,                         AWS KSM is multi-tenant AWS Service
+Customer managed durability and available       Highly available and durable key storage mgmt
+Customer managed root of trust                         AWS managed root of trust
+FIPS 140-2 Level 3                                                FIPS 140-2 Level 2 / FIPS 140-2 Level 3 in some areas
+Broad 3rd party support                                       Broad AWS Service support
+
+Techniques used in AWS to mitigate DDoS
+AWS Service
+NACLs SGs VPC Design (Minimize attack surface)
+Auto-scaling Groups, AWS CloudFront, Static Web Content via S3 (Scale to absorb attack)
+Route 53, AWS WAF, AWS Shield (Safeguard exposed resources)
+AWS GuardDuty CloudWatch (To learn normal behavior)
+
+Differences between CloudWatch and CloudTrail
+
+CloudWatch                                                                                            Cloud Trail
+Log events across AWS services                                                    Log API activity across AWS services
+High-level comprehensive Monitoring                                          More low-level granular
+Logs stored indefinitely                                                                 Log stored to S3 or cloudwatch indef
+Alarms history for 14 days                                                            No native alarms, can use cw alarms
+
+AWS Service Catalog
+It is a framework that allows admin to create pre-defined products and landscapes for their users
+Make use of adopted IAM role so users don't need underlying service access
+Allow users to be self-sufficient
+Based on cloudformation templates
+
+3 type of AWS Service Catalog Constraints
+1- Launch constraint: IAM role that Service Catalog assumes when an user launches a product
+2- Notification constraint: Use Amazon SNS topic to receive notifications when products are launched or have problems
+3- Template constraint: One or more rules that narrow allowable values an end-user can select.
+
+Identity Account Structure
+     Manage all users accounts in one location
+Logging Account Structure
+     Centralized logging repository, can be secured so as to be immutable, can use service control policies (SCP) to prevent sub-account s from changing logging settings
+Publihing Account Structure
+     Common repository for AMI's, Containers, Code
+Information Security Account Structure
+     Hybrid of consolidated security and logging
+     Allows one point of control and audit
+     Logs cannot be tampered with by sub-account users
+Central IT Account Structure
+     IT can manage IAM users and groups while assigning to sub-account roles
+     IT can provide shared services and standardized assets that adhere to corporate policy.
