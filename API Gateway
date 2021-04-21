@@ -1,0 +1,22 @@
+Client <-Rest AP-> Amazon API Gateway <-Proxy requests->AWS Lambda<-CRUD->DynamoDB
+
+Limits of API Gateway
+     29 seconds timeout
+     10 MB max payload size
+API Gateway in front of S3
+     If you want to upload a large size file using API Gateway it won't be possible since the limit is 10MB. How wever you can still do the same action using different path
+     1- Client send request to API gw
+     2- API gw invoke a Lambda function
+     3- Lambda function generate a pre-signed URL for S3
+     4- The URL is forwarded to the client application
+     5- The client applicaiton use the URL to upload the file to S3
+
+API Gateway Erros
+     4XX Means client errors
+          400 Bad request
+          403 Access denied WAF filtered
+          429 Quota exceeded throttle
+     5XX means Server errors
+          502 Bad Gateway exception; usually due to heavy loads
+          503 Service Unavailable Exception
+          504: Integration failure
