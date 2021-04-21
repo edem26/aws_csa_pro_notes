@@ -1,0 +1,38 @@
+***************************************** Elastic Beanstalk **************************************
+Beanstalk support; Java with Tomcat
+Beanstalk is the perfect solution to "Replatform" your application from on-prem to the cloud
+
+3 Architecture models type with Beanstalk
+     Single instance deployment: Good for Dev
+     LB + ASG: Great for production or pre-prod web app
+     ASG only: great for non-web apps in prod (worker tier)
+If your application performs tasks that are long to complete, offload these tasks to a dedicated worker environment. Worker tier = SQS + EC2
+
+Blue/Green Deployment
+1- Create a new env and deploy the v2 there
+2- Validate the new env independently to see if any errors occurs
+3- Use route 53 with weighted policies to redirect a lottle bit of traffic to the v2
+4- Use Elastic Beanstalk "swap URLs" (DNS Swap) when done with the environment test
+
+******************************************** CodeDeploy ******************************************
+Hepls to deploy our application automatically to many EC2 instances
+Integration with EC2 ASG ECS & Lambda
+
+CodeDeploy to EC2
+1- Define how to deploy the app using appspec.yml + deployment strategy
+2- CodeDeploy will do in-place update to your fleet of EC2 instances
+3- Use hooks to verify the deployment after each deployment phase
+
+CodeDeploy to ASG
+1- In-place updates: Update the current EC2 instances in the asg
+2- Blue/Green deployment: A new ASG is created and the EC2 are going to be transfered from old to new asg. Need to have ELB 
+
+CodeDeploy to Lambda
+     Traffic shifting feature of Lambda alias
+     Pre and Post traffic hooks to validate deployment
+     Easy and automated roll back using CW alarms
+
+CodeDeploy to ECS
+     Support Blue/Green deployment
+     Setup is done in ECS service def
+     A new task is set and traffic is re-routed to the new task set
