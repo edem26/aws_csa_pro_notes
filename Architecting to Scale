@@ -1,0 +1,49 @@
+Loosely Coupled Architecture: Components can stand independently and require little or no knowledge of the inner workings of the other components
+
+Horizontal Scaling                                                               |               Vertical Scaling
+Add more instances as demand increases                          |        Add more CPU/RAM to existing EC2 
+No down time                                                                     |       Requires restart to scale up or down
+Automatic using Auto-scaling groups                                |        Would require scripting to automate
+Unlimited addition of instances                                          |        Limited by instance sizes
+
+
+Auto-scaling
+
+Amazon EC2 Auto scaling: Only focuses on EC2 and nothing else. Why? Setup scaling groups for EC2 instances
+
+- [ ]  Automatically provides horizontal scaling
+- [ ]  Triggered by an event 
+- [ ]  Four scaling options:
+     - [ ]  Maintain: Keep a specific or minimum number or instances running
+     - [ ]  Manual: Use maximum,minimum, or specific number of instances running
+     - [ ]  Shedule: Increase or decrese instances based on schedule
+     - [ ]  Dynamic Scale based on real time metrics of the systems
+
+Applicaiton Auto Scaling: API used to control scaling for resources other than EC2, like Dynamo, ECS, EMR
+
+AWS Auto Scaling: Provides centralized way to manage scalability for whole stacks. Why? Console that can manage both of the above gtom a unified standpoint
+
+Different EC2 Auto scaling Policies
+Target tracking poliy: What? Scale based on a predefined or custom metric in relation to a target value. When? When CPU gets to 70%, scale up
+
+Simple scaling policy: What? Waits until health check and cool down period expires before evaluating new need. When? Let;s add new instances slow and steady
+
+Step scaling policy: What? Responds to scaling need with more sophistication and logic. When? Add all the instances
+
+SQS: Queuing message service, not a storage but transient storage, can hold for 4 and max 14 days. Max size of message is 256KB but can use Java SDK to store it on s3 for 2GB
+Amazon MQ: Manage implementation of Apache ActiveMQ; it takes messages, manipulate it and make it available for other apps to use them. Amazon MQ is designed as a drop in replacement for on-prem message brokers
+*** Use SQS if you are creating a new app from scratch***
+***Use Amazon MQ if you want an easy low hassle path to migrate from existing msg brokers to AWS***
+
+AWS Simple Workflow Service SWF: Worker,Decider
+Best suited for human-enabled workflows like an order fulfillment or procedural requests.
+AWS recommends new applications -- look at Step functions over SWF
+
+AWS Step Functions
+Manage workflow and orchestration platform
+Define your app as a state machine
+Create tasks, sequential steps, paralllel steps etc
+Uses Amazon State Language declarative JSON
+
+Amazon EMR
+Managed Hadoop framework for processing huge amounts of data. Mostly used for log analysis, ETL 
