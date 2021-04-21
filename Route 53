@@ -1,0 +1,21 @@
+Type of records
+     A: Hostname to IPv4
+     AAAA: Hostname to IPv6
+     CNAME: Hostname to hostname
+     Alias: Hostname to AWS resource
+          Use for CLB,ALB,NLB,CloudFront,S3 bucket,Elastic Beanstalk
+
+Private DNS
+     Can use Route 53 for internal private DNS
+     Must enable the VPC settins enableDnsHostNames and anableDnsSupport
+DNSSEC: Protect against man in the middle attack
+     Amazon Route53 support DNSSEC for domain registration
+     Route53 does not support DNSSSEC for DNS service
+     To configure DNSSEC for a route53 domain, use another DNS provider or custom DNS server on amazon EC2 (bind, dnsmasq,KnotDNS, PowerDNS)
+
+Type of architectures
+
+OK
+Client <--> API GW <--> AWS LAmbda <--> SQS
+BETTER: Lower latency, cheaper, Not using Lambda
+Client <--> API GW <--> SQS
