@@ -1,0 +1,17 @@
+**************************************** SSM **************************************************
+SSM Service is a free service
+Run Command: Execute a document=scripts 
+No ssh access to do a run command
+SSM Patch manager
+     Different patch baseline
+          Linux:
+               AWS-AmazonLinux2DefaultPatchBaseline
+          Windows
+               AWS-DefaultPatchBaseline
+     Steps to apply patch manager
+          1- define a patch baseline to use
+          2- define patch group, define based on tags - use tag Patch Group
+          3- Define maintenance windows
+          4- add the AWS-RunPatchBaseline Run command
+          5- Define Rate Control
+          6- Monitor Patch Compliance using SSM Inventory
