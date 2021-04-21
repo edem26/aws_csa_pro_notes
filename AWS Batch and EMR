@@ -1,0 +1,26 @@
+Run batch jobs as Docker Images
+No need to manage clusters, fully serverless
+Use case: batch proces of images, running thousands of concurrent jobs
+Batch relies on EC2 (On-demand or Spot instances) but it can be manged by AWS for capacity scaling
+
+AWS Batch Architecture
+
+S3 --S3 Event--> AWS Lambda --API Call-->AWS Batch
+OR
+S3 --CloudWatch Event-->Trigger a call to --> AWS Batch
+
+****************************************** EMR ****************************************************
+Used mainly to migrate Hadoop cluster from on-prem to AWS
+Use cases: data processing, machine learning, web indexing, big data
+
+EMR uses EBS Volume (HDFS) for temporary storage in single AZ
+However, if need permanent storage, or mult AZ, use S3 EMRFS
+
+EMR Node Types & purchasing
+     Master node: Manage the cluster 
+     Core nodesL Run tasks and store data
+     Task Node (optional): Just to run tasks
+Purchasing Options:
+     On-demand: reliable
+     Reserved(1 year min)
+     Spot Instance: cheaper, can be terminated
