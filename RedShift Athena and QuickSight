@@ -1,0 +1,17 @@
+******************************************** REDSHIFT **********************************************
+Based on PostgreSQL, not used for OLTP (Online Transaction Processing) RDS is a good choice for OLTP
+Redshift is good for OLAP Online analytical processing
+10X better performance than other data warehouses, scale to PBs of data
+ Columnar storage of data instead of row
+ BI tools such as QuickSight or Tableau
+ Redshift is not Multi AZ
+
+****************************************** Athena & Quicksight ***************************
+Athena:
+     Serverless SQL quieries on top of data in S3
+     Queries are logged in CloudTrail
+     Good for sporadic queries
+     Ready to use queries for VPC Flow Logs, CloudTrail, ALB Access logs, Cost and Usage reports etc.
+Quicksight:
+     BI tool for data visualization, creating dashboard
+     Integrates with Athena, Redshift, EMS, RDS
