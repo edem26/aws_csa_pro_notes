@@ -1,0 +1,77 @@
+Creating a VPC by default will create a route table, NACL, and Security Group
+Only 1 IGW perv VPC
+ AWS Managed VPN 
+ What: is a managed IPsec VPN connection over your existing internet
+ Use Case: Quick and usuallysimple way to establish a secure tunneled connection to a VPC
+ Advantages: Supports static routes or BGP peering and routin
+ Disadvantages: Rely on the internet connection
+
+AWS Direct Connect
+What: Dedicated network connection over private lines straight into AWS
+When: Require a big pipe into AWS
+Advantages: More predictable network performance, supports BGP peering and routing
+Disadavantages: May require additional telecom work
+
+AWS Direct Connect Plus VPN
+What: Ipsec VPN connection over private lines
+When: Want added security of encrypted tunnel over Direct Connect
+Advantages: More secure than Direct Connect alone
+Disadvantages: More complexity introduced bt VPN layer
+
+AWS VPN CloudHub
+What: Connect locations in a Hub and Spoke manner using AWS Virtual Private Gateway
+When: Link remote offices for backp or primary WAN access to AWS resources and each other
+Advantages: Reuses existing internet connection, support BGP
+Disadvantages: Dependent on the internet connection
+
+Transit VPC
+What: Common way to connect geographically diisperse VPCs and locations in order to create a global network transit center
+When: Locations and VPC-deployed assets across multiple regions that need to communicate with one another
+Advantages: Ultimate flexibility and manageability
+Disadvantages: You must design for any needed redundancy across the whole chain
+
+VPC Peering
+What: AWS prvided network connectivity between 2 VPCs
+When: Multiple VPCs need to communicate or access each other resources
+Advantages: Uses AWS backbone without touching the internet
+Disadvantages: Transitive peering not supported, if A --> B --> C, A cannot connect to C
+
+AWS PrivateLink
+What: Provide  connection between VPCs or AWS services using interface endpoints
+When: Keep private subnets truly private by using AWS backbone to reach other services rather than the internet
+Advantages: Uses AWS backbone
+Disadvantages: They can be accessed over inter-region VPC peering
+
+2 Types of Endpoints: 
+1- Interface Endpoint: Other services
+2- Gateway Endpoint: S3 and DynamoDB
+
+Different way to provide internet access to a VPC in AWS
+1- Internet Gateway: Highly available component that allows communication between VPC and internet
+     No concern about availability or bandwidth.
+     Purpose1: Provide routetable target for internet bound traffic
+     Purpose 2: Perform NAT for instances wit hpublic IP addr
+2- Egress only IGW: Only used for IPv6. In AWS IPv6 are public by default
+     For IPv6 you don't need a NAT instance to access the internet but you need an IGW or Egress-only GW  to access the internet. 
+     Difference between IGW and Egress-only GW is that Egress-only GW is only outbound, it prevents inbound access to IPv6 instances
+3- NAT Instance: It is an EC2 instance that translate traffic from many private IP instance to a single public IP and back. NAT instance must leave on the public subnet with route to IGW
+4- NAT GW: Fully managed NAT service tat replaces need for NAT instance on EC2
+     Must be created in a public subnet. 
+     Good for high availability
+     For multi-AZ redundancy, create NAT GE in each AZ with route for private subnets to use the local GW
+     Can't use NAT GW to access VPC Peering Direct Connect
+
+Routing
+Prefix list address is used when having an endpoint to the VPC 
+BGP: Border Gateway Protocol
+    Popular routing protocol for the internet
+    Propagates information about the network to allow for dynamic routing
+    If not using BGP, you should use AWS VPC static routes
+
+Placement Groups
+1- Clustered: Putting all instances into a low latency group within the same AZ
+            Use when need low network latency, good to get the most out of enhances network instances, bad because of capacity limitation.
+2- Spread: Spreading instances across underlying hardware
+            Use if you want to reduce risk of simultaneous failure, good because it can span multiple AZ, bad because you can only have 7 instances max running per group per AZ.
+3- Partitions: Instances are grouped into partitions and spread across racks
+            Use if you want to reduce risk of corrolated hardware failure for multi-instance workloads, good for large distributed or replicated workloads, bad because not recommended for Dedicated hosts
