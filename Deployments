@@ -1,0 +1,10 @@
+Types of Deployments
+Software Deployments
+     - [ ] Big Bang: Riskier everyting goes live all at once, shortest time
+     - [ ] Phase rollout: lower risk but take time, gradual overtime
+     - [ ] Parallel Adoption: Takes lot of time, implement the new while still using the old
+
+Rolling Deployment: For example updating a fleet of EC2 instance in launch group
+A/B Testing: using route 53 of a website to give some traffic to one version and the other to the new version
+Canary Release
+Blue Green Deployment: Switch application version from one to another using route 53
