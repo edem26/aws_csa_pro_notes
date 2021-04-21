@@ -1,0 +1,37 @@
+Migration Strategies
+
+Re-host: Lift and Shift, simply move assets with no change
+Re-Platform: Lift and Reshape, move assets but change underlying platform
+Re-Purchase: Drop and Shop, Abandon existing and purchase new
+Rearchitect: Redesign application in a cloud-native manner
+Retire: Get rid of app which are not needed
+Retain: Do nothing decide to reevaluate at a future date
+
+TOGAF: The Open Group Architectural Framework
+Enterprise Architecture is not TOGAF
+
+Cloud Adoption Framework
+There is more to cloud adoption than technology. It entails business, people, governance, platform, security, and operations
+
+Migration tools:
+Storage Migration: AWS Storage Gateway AWS Snowball
+Server Migration Service: Automatic migration of on-prem vmware vsphere to AWS
+Replicate VMs to AWS, minimizes cutover downtime, Server migration connector is downloaded as a virtual appliance into the on-prem vSphere
+
+Database migration service: DMS help customers migrate db to AWS RDS or EC2 based db
+Schema conversion tool SCT can copy or convert db schemas. SCT is used for larger, more complex datasets like warehouses
+DMS is used for smaller, simpler conversions and also supports MongoDB and DynamoDB
+
+App discovery service: Gathers information about on-prem data centers, collects config, usage and behavior data from your servers to help in estimating TCO of running on AWS. It can run as agentless in VMware env or agent-based on non-VMware env
+
+AWS migration hub: Regroup all these migrations tool
+
+When migrating network, make sure that IP address do not overlap between VPC and on-prem
+VPC support IPv4 netmasks range from /16 to /28
+Network migration
+
+AWS Snow Family
+AWS Import/Export: Ship an external hard drive to AWS. Someone at AWS copy the content to S3
+AWS Snowball: NAS in a box ships to you. Copy over 80TB. Ship to AWS. Copy data to S3
+AWS SNowball Edge: Same as Snowball but with onboard Lambda and clustering
+AWS Snowmobile: Shipping container full of storage (up to 100PB) and truck to transport it
