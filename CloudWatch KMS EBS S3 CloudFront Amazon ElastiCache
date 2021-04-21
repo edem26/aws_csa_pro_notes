@@ -1,0 +1,62 @@
+CloudWatch Logs - S3 Export
+     S3 buckets must be encrypted with AES 256 (SSE-S3) not SSE-KMS
+     Log data can take up to 12hours to become available for export
+     Use API call CreateExportTask
+     Not near-real time or real-time -- Use Logs Subscriptions instead
+
+CloudWatch Logs --> subscription Filter --> Lambda Function --Real-time---> Amazon ES
+CloudWatch Logs --> subscription Filter --> Kinesis Firehose -- Near real-time ---> Amazon S3
+CloudWatch Logs --> subscription Filter --> Kinesis streams 
+
+CloudWatch Logs Agents and Unified Agent cannot send logs to Kinesis -- Use the kinesis agent instead
+
+AWS KMS
+     The CMK used to encrypt data can never be retrieved by the user.
+     The CMK can rotate
+     KMS can only help in encrypting up to 4KB of data per call
+     If data is more than 4KB, use Envelope Encryption
+
+
+AWS Fargate is not cost-efficient service compared to AWS API Gateway and Lambda
+WAF is not for DDoS attackes but more of HTTP layer protection
+
+EBS Volume Types
+     gp2 Cheap -- Max IOPS is 16000
+     io1 Expensive -- good to use with Database
+     st1 -- Godd for bid data workload
+     sc1 -- Cold HDD -- Infrequently Accessed data
+
+S3 Byte-Range Fetches
+     Parallelize GETs by requesting specific byte ranges
+     Better resilience in case of failures
+     Used to speed up downloads
+
+S3 Select & Glacier Select
+     Retrieve less data using SQL by performing server side filtering
+     Simple SQL statements
+
+CloudFront
+      CloudFront Origin
+          S3 bucket
+               For more security use it with Origin Access Identity
+          S3 website
+          Custom Origin (HTTP)
+               ALB
+               EC2
+               API Gateway for more control otherwise use API Gateway Edge
+               - CloudFront is great for static content that must be available everywhere
+               - S3 Cross Region Replication is great for dynamic content that needs to be available at low  latency in few regions
+     CloudFront Singned URL / Signed cookies
+          Signed URL ==> Good for accessing individual files (1 signed URL/file)
+          Signed cookies ==> Good for accessing multiple files (1 signed cookie for many files)
+     To maximze CloudFront caching
+           use less headers values
+           Separate the static and the dynamic distributions
+     Lambda@Edge does not have any cache
+     Lambda@Edge is used for users authentication and authorization
+
+
+Amazon ElastiCache
+     Helps reduce load off of database for read intensive workloads
+     Helps make your app stateless
+     Using ElastiCache involves heavy application code changes
