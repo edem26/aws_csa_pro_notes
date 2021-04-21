@@ -1,0 +1,24 @@
+************************************** VPC *******************************************************
+VPC Peering - No Edge to edge routing
+     VPC Peering does not support edge to edge routing for NAT devices
+
+Transit VPC (Software VPN)
+     Allows for transitive connectivity between VPC & locations
+Transit Gateway is prefered over Transit VPC
+     Share cross-account using Resource Access Manager
+     You can peer Transit gw across regions
+     Support IP multicast
+
+VPC Endpoints
+     Allows you to connect to AWS Services using a private network instead of public network
+     Use VPC Endpoint gw if you want your EC2 instance to talk to S3 and DynamoDB only
+     Use VPC Endpoint interface if you want your EC2 to talk to any other AWS services
+          With VPC Endpoint Interface, you have to setup PrivateDNS setting while creating the endpoint
+          VPC Setting "Enable DNS Hostnames" and "Enable DNS Support" must be 'True"
+
+     Private IP restriction --> aws:sourceVpc
+     Public IP restriction --> aws:SourceIp
+
+AWS PrivateLink (VPC Endpoint Services)
+     Most secure & scalable way to expose a service to 1000s of VPC 
+     Requires a network load balancer (Service VPC) and ENI (Customer VPC)
