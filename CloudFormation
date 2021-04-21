@@ -1,0 +1,29 @@
+**************************************** CloudFormation *********************************************
+ CloudFormation with ASG
+     CF manage the ASG not the underlying EC2
+     Define success condition for the launch of your EC2 instances using a CreationPolicy
+     Define update strategies for the update of your EC2 instances using an UpdatePolicy
+     In case you have to update the underlying EC2 in an ASG, you have to create a new launch conf / launch template and use an UpdatePolicy
+
+Retaining Data on Deletes
+     Use DeletionPolicy [Retain|Snapshot|Delete]
+
+CF Custom Resources (Lambda)
+     You can use custom resources in CF to do
+          1- An AWS resource is not yet supported
+          2- An on-prem resource
+          3- Emptying a s3 bcket before deleting it
+          4- Fetch AMI id
+CF - Cross vs Nested Stacks
+     Cross Stacks
+          Helpful when stacks have different lifecycles
+          Use Outputs Export and Fn::ImportValue
+          Use when you need to pass export values to many stacks
+     Nested Stacks
+          Useful when components must be re-used
+
+CF - Concepts
+     CloudFormer: Use to create CF template for existing AWS resources
+     ChangeSets: Generate and preview the CF changes before they get applied
+     StackSets: Deploy a CF across mulptiple acct and regions
+     Stack Policies: Prevent accidental updates/deletes to stacks resources
