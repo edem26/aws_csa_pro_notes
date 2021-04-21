@@ -1,0 +1,24 @@
+Different type of DR
+Backup and Restore: No rush to retrieve the data after a disaster.
+Pilot Light: Only core component of an application will be in the DR 
+Warm Stand by: Scale down of a full functional environment will be in the DR
+Multi site:
+
+Storage HA Options:
+EBS Volumes: Pro: Availability target of 99.999%, easy to snapshot, supports RAID configuration
+Cons: Vulnerable to AZ failure
+
+Differents type of RAID
+RAID 0: No redundancy.. Good read and write, distributing the load accross the drives
+RAID 1: Copying identical data to each drive, slower on read and write
+RAID 5: 1 drive can fail, Popular, Need 3 drives, 2 drive will store the data and one drive will store the parity bit
+RAID 6: 2 drives can fail, minimum of 4 drives
+
+AWS doesn't recommend RAID 5 or 6... but rather RAID 0 or 1.
+
+HA Approaches for Databases
+If possible choose DynamoDB over RDS because of inherent fault tolerance
+If DynamoDB can't be used, choose Aurora because of redundancy and automatic recovery features
+If Auraora can't be used, choose Multi-AZ RDS
+
+Data Replication
