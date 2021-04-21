@@ -1,0 +1,13 @@
+Lambda Limits
+     RAM: 128 MB to 3GB Max
+     CPU:
+          Is linked to RAM
+     Timeout: up to 15min
+     /tmp storage: 512 MB (can't process BIG files)
+     Deployment package limit: 250MB
+Lambda Latency:
+     X-Ray can help visualize the end-to-end latency
+Lambda Synchronous Invocations: CLI, SDK, API Gateway
+Lambda Asynchronous Invocations: S3, SNS, CloudWatch Events, Lambda attempts to retry on errors
+Lambda Aliases enable blue/green deployment
+CodeDeploy can help you automate traffic shift for Lambda aliases
