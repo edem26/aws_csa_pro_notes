@@ -1,0 +1,22 @@
+3 types of LB
+     Classic LB -- Old: Http(s), TCP
+           Layer 7 and Layer 4
+          Support only one SSL certificate: Not flexible
+     Application LB -- New gen: Http(s), WebSocket
+          Just Layer 7
+          Good for Docker ECS great for micro services
+          Support multiples listeners
+          Support SNI - Server Name Indication
+     Network LB -- New Gen: TCP, TLS & UDP
+          Layer 4 LB
+          Handle millions of request per second
+          Good to whitelist IP -- One static IP per AZ
+          Less latency
+
+Cross-Zone LB
+     Classic LB and Network LB
+          Disabled by default
+          Charges incured for inter AZ data if enabled in Network LB
+     Application LB
+          Enabled by default
+          No charges for inter AZ data for both Classic and Application LB
