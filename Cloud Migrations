@@ -1,0 +1,21 @@
+************************************** Cloud Migrations *********************************************
+File gateway
+     It is a vm to bridge between your NFS on-prem and S3
+     Configured s3 are accessible using the NFS and SMB protocol
+Volume gateway
+     Uses iSCSI protocol backed by S3
+     Cached volumes
+
+If it takes more than one week to move files over the network, use Snowball devices
+It you want to move files more than 10PB to the cloud, use Snowmobile
+
+******************** Database Migration Services ****************************************
+DynamoDB, Redshift, Kinesis are not source item for DMS
+
+Snowball + DMS
+1- Use the AWS Schema Conversion Tool to extract data locally and move it to Edge device
+2- Ship the snowball edge device to AWS
+3- Edge device will automatically loads the data to S3
+4- AWS DMS takes the files and migrates the data to the target data store. You can use CDC to capture any change that happened while sending the data to AWS
+
+AWS SMS is to migrate the entire VMs to AWS
