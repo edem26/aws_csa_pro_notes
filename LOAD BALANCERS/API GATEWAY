@@ -1,0 +1,46 @@
+3 types of LB
+     Classic LB -- Old: Http(s), TCP
+           Layer 7 and Layer 4
+          Support only one SSL certificate: Not flexible
+     Application LB -- New gen: Http(s), WebSocket
+          Just Layer 7
+          Good for Docker ECS great for micro services
+          Support multiples listeners
+          Support SNI - Server Name Indication
+     Network LB -- New Gen: TCP, TLS & UDP
+          Layer 4 LB
+          Handle millions of request per second
+          Good to whitelist IP -- One static IP per AZ
+          Less latency
+
+Cross-Zone LB
+     Classic LB and Network LB
+          Disabled by default
+          Charges incured for inter AZ data if enabled in Network LB
+     Application LB
+          Enabled by default
+          No charges for inter AZ data for both Classic and Application LB
+          
+**************************************** API GATEWAY **********************************************
+Client <-Rest AP-> Amazon API Gateway <-Proxy requests->AWS Lambda<-CRUD->DynamoDB
+
+Limits of API Gateway
+     29 seconds timeout
+     10 MB max payload size
+API Gateway in front of S3
+     If you want to upload a large size file using API Gateway it won't be possible since the limit is 10MB. How wever you can still do the same action using different path
+     1- Client send request to API gw
+     2- API gw invoke a Lambda function
+     3- Lambda function generate a pre-signed URL for S3
+     4- The URL is forwarded to the client application
+     5- The client applicaiton use the URL to upload the file to S3
+
+API Gateway Erros
+     4XX Means client errors
+          400 Bad request
+          403 Access denied WAF filtered
+          429 Quota exceeded throttle
+     5XX means Server errors
+          502 Bad Gateway exception; usually due to heavy loads
+          503 Service Unavailable Exception
+          504: Integration failure
